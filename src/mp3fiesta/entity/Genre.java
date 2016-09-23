@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -29,13 +31,31 @@ public class Genre implements Serializable {
     @ManyToMany
     @JoinTable(name = "Album_genre")
     private List<Album> albums = new ArrayList<>();
-
+    @JoinTable(name = "sous_genre")
+    private List<Genre> sousGenre = new ArrayList<>();
+    
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
+    public List<Genre> getSousGenre() {
+        return sousGenre;
+    }
+
+    public void setSousGenre(List<Genre> sousGenre) {
+        this.sousGenre = sousGenre;
     }
 
     @Override
