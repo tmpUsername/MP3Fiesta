@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -31,9 +32,14 @@ public class Genre implements Serializable {
     @ManyToMany
     @JoinTable(name = "Album_genre")
     private List<Album> albums = new ArrayList<>();
-    @JoinTable(name = "sous_genre")
-    private List<Genre> sousGenre = new ArrayList<>();
-    
+
+    @ManyToOne
+    @JoinColumn(name = "genre_parent_id")
+    private Genre parentGenre;
+
+    @OneToMany(mappedBy = "parentGenre")
+    private List<Genre> subgenres = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -50,12 +56,20 @@ public class Genre implements Serializable {
         this.albums = albums;
     }
 
-    public List<Genre> getSousGenre() {
-        return sousGenre;
+    public Genre getParentGenre() {
+        return parentGenre;
     }
 
-    public void setSousGenre(List<Genre> sousGenre) {
-        this.sousGenre = sousGenre;
+    public void setParentGenre(Genre parentGenre) {
+        this.parentGenre = parentGenre;
+    }
+
+    public List<Genre> getSubgenres() {
+        return subgenres;
+    }
+
+    public void setSubgenres(List<Genre> subgenres) {
+        this.subgenres = subgenres;
     }
 
     @Override
@@ -82,5 +96,5 @@ public class Genre implements Serializable {
     public String toString() {
         return "mp3fiesta.entity.Genre[ id=" + id + " ]";
     }
-    
+
 }
