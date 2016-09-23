@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -20,21 +21,19 @@ import javax.persistence.OneToMany;
  * @author admin
  */
 @Entity
-public class Album implements Serializable {
+public class Chart implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany(mappedBy = "albums")
-    private List<Artiste> artistes = new ArrayList<>();
-    @ManyToMany(mappedBy = "albums")
-    private List<Chart> charts = new ArrayList<>();
-    @OneToMany(mappedBy = "album")
-    private List<Piste> pistes = new ArrayList<>();
-    @ManyToMany(mappedBy = "albums")
-    private List<Genre> genres = new ArrayList<>();
-
+    @ManyToMany
+    @JoinTable(name = "album_charts")
+    private List<Album> albums = new ArrayList<>();
+    private Integer rang;
+    @OneToMany(mappedBy = "chart")
+    private List<CategorieChart> categorieCharts = new ArrayList<>();
+    
     public Long getId() {
         return id;
     }
@@ -43,36 +42,28 @@ public class Album implements Serializable {
         this.id = id;
     }
 
-    public List<Artiste> getArtistes() {
-        return artistes;
+    public List<Album> getAlbums() {
+        return albums;
     }
 
-    public void setArtistes(List<Artiste> artistes) {
-        this.artistes = artistes;
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
     }
 
-    public List<Chart> getCharts() {
-        return charts;
+    public Integer getRang() {
+        return rang;
     }
 
-    public void setCharts(List<Chart> charts) {
-        this.charts = charts;
+    public void setRang(Integer rang) {
+        this.rang = rang;
     }
 
-    public List<Piste> getPistes() {
-        return pistes;
+    public List<CategorieChart> getCategorieCharts() {
+        return categorieCharts;
     }
 
-    public void setPistes(List<Piste> pistes) {
-        this.pistes = pistes;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
+    public void setCategorieCharts(List<CategorieChart> categorieCharts) {
+        this.categorieCharts = categorieCharts;
     }
 
     @Override
@@ -85,10 +76,10 @@ public class Album implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Album)) {
+        if (!(object instanceof Chart)) {
             return false;
         }
-        Album other = (Album) object;
+        Chart other = (Chart) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -97,7 +88,7 @@ public class Album implements Serializable {
 
     @Override
     public String toString() {
-        return "mp3fiesta.entity.Album[ id=" + id + " ]";
+        return "mp3fiesta.entity.Charts[ id=" + id + " ]";
     }
     
 }

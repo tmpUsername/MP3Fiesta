@@ -12,28 +12,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 /**
  *
  * @author admin
  */
 @Entity
-public class Album implements Serializable {
+public class Membre implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToMany(mappedBy = "albums")
-    private List<Artiste> artistes = new ArrayList<>();
-    @ManyToMany(mappedBy = "albums")
-    private List<Chart> charts = new ArrayList<>();
-    @OneToMany(mappedBy = "album")
-    private List<Piste> pistes = new ArrayList<>();
-    @ManyToMany(mappedBy = "albums")
-    private List<Genre> genres = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "Membre_Piste")
+    private List<Piste> pistesAchetees = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -41,38 +36,6 @@ public class Album implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Artiste> getArtistes() {
-        return artistes;
-    }
-
-    public void setArtistes(List<Artiste> artistes) {
-        this.artistes = artistes;
-    }
-
-    public List<Chart> getCharts() {
-        return charts;
-    }
-
-    public void setCharts(List<Chart> charts) {
-        this.charts = charts;
-    }
-
-    public List<Piste> getPistes() {
-        return pistes;
-    }
-
-    public void setPistes(List<Piste> pistes) {
-        this.pistes = pistes;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
     }
 
     @Override
@@ -85,10 +48,10 @@ public class Album implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Album)) {
+        if (!(object instanceof Membre)) {
             return false;
         }
-        Album other = (Album) object;
+        Membre other = (Membre) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -97,7 +60,7 @@ public class Album implements Serializable {
 
     @Override
     public String toString() {
-        return "mp3fiesta.entity.Album[ id=" + id + " ]";
+        return "mp3fiesta.entity.Membre[ id=" + id + " ]";
     }
     
 }

@@ -5,8 +5,11 @@
  */
 package mp3fiesta.entity.test;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -14,7 +17,13 @@ import static org.junit.Assert.*;
  */
 public class MP3FiestTest {
     
-    public MP3FiestTest() {
-    }
+   @BeforeClass
+   public static void init(){
+       EntityManager em = Persistence.createEntityManagerFactory("PU").createEntityManager();
+   }
     
+   @Test
+   public void testvide(){
+       
+   }
 }

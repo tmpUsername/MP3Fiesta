@@ -4,6 +4,11 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>mp3fiesta.entity.Album</class>
     <class>mp3fiesta.entity.Artiste</class>
+    <class>mp3fiesta.entity.Piste</class>
+    <class>mp3fiesta.entity.Genre</class>
+    <class>mp3fiesta.entity.Membre</class>
+    <class>mp3fiesta.entity.CategorieChart</class>
+    <class>mp3fiesta.entity.Chart</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
